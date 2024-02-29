@@ -26,14 +26,33 @@ def ball_animation():
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
 
+def player_animation():
+    player.y += player_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= height:
+        player.bottom = height
+
+def opponent_animation():
+    if opponent.top < ball.y:
+        opponent.top += opponent_speed
+    if opponent.bottom > ball.y:
+        opponent.bottom -= opponent_speed
+    if opponent.top <= 0:
+        opponent.top = 0
+    if opponent.bottom >= height:
+        opponent.bottom = height
+
 # shape and its dimentions
 ball = pg.Rect(width/2 - 15, height/2 - 15, 30, 30)
-player = pg.Rect(width - 20, height/2 - 70, 10, 140)
-opponent = pg.Rect(10, height/2 - 70, 10, 140)
+player = pg.Rect(10, height/2 - 70, 10, 140)
+opponent = pg.Rect(width - 20, height/2 - 70, 10, 140)
+
 
 ball_speed_x = 7
 ball_speed_y = 7
 player_speed = 0
+opponent_speed = 7
 
 # main loop
 while True:
@@ -53,8 +72,8 @@ while True:
                 player_speed += 7
     
     ball_animation()
-    player.y += player_speed
-
+    player_animation()
+    opponent_animation()
 
     # adding color
     screen.fill(pg.Color('Silver'))
