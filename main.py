@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+import random
 
 # setup
 pg.init()
@@ -21,7 +22,7 @@ def ball_animation():
     if ball.top <= 0 or ball.bottom >= height:
         ball_speed_y *= -1
     if ball.left <= 0 or ball.right >= width:
-        ball_speed_x *= -1
+        restart()
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
@@ -42,6 +43,11 @@ def opponent_animation():
         opponent.top = 0
     if opponent.bottom >= height:
         opponent.bottom = height
+
+def restart():
+    ball.center = (width/2, height/2)
+    ball_speed_y = random.choice((1, -1))
+    ball_speed_x = random.choice((1, -1))
 
 # shape and its dimentions
 ball = pg.Rect(width/2 - 15, height/2 - 15, 30, 30)
