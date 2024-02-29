@@ -33,6 +33,7 @@ opponent = pg.Rect(10, height/2 - 70, 10, 140)
 
 ball_speed_x = 7
 ball_speed_y = 7
+player_speed = 0
 
 # main loop
 while True:
@@ -40,10 +41,20 @@ while True:
         if event.type == pg.QUIT:
             pg.quit()
             sys.exit()
-
-  
-
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_DOWN:
+                player_speed += 7
+            if event.key == pg.K_UP:
+                player_speed -= 7
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_DOWN:
+                player_speed -= 7
+            if event.key == pg.K_UP:
+                player_speed += 7
+    
     ball_animation()
+    player.y += player_speed
+
 
     # adding color
     screen.fill(pg.Color('Silver'))
